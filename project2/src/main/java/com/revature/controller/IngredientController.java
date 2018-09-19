@@ -24,7 +24,7 @@ public class IngredientController {
 	
 	// /ingredient/
 	@PostMapping
-	public Ingredients save(@RequestBody List<Ingredients> i) {
+	public Ingredients save(@RequestBody Ingredients i) {
 		return is.save(i);
 	}
 	

@@ -2,6 +2,8 @@ package com.revature.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.Recipe;
@@ -26,11 +27,29 @@ public class RecipeController {
 	private RecipeService rs;
 	@Autowired
 	private IngredientService is;
+	@Autowired
+	private IngredientController ic;
 
 	// /recipe
+//	@PostMapping
+//	public ResponseEntity<Recipe> save(@RequestBody Recipe newRecipe) {
+//		Recipe recipe = rs.save(newRecipe);
+//		ResponseEntity<Recipe> resp = new ResponseEntity<Recipe>(recipe, HttpStatus.CREATED);
+//		return resp;
+//	}
+
+	@Transactional
 	@PostMapping
 	public ResponseEntity<Recipe> save(@RequestBody Recipe newRecipe) {
+		newRecipe.setIngredients(newRecipe.getIngredients());
+		newRecipe.getIngredients().forEach(each -> {
+			ic.save(each.getIngredient());
+		});
+
 		Recipe recipe = rs.save(newRecipe);
+		newRecipe.getIngredients().forEach(each -> {
+			rs.addItem(newRecipe.getRecipeId(), each);
+		});
 		ResponseEntity<Recipe> resp = new ResponseEntity<Recipe>(recipe, HttpStatus.CREATED);
 		return resp;
 	}
@@ -57,9 +76,9 @@ public class RecipeController {
 	}
 
 	// /recipe/:dietid
-	@GetMapping("/diet/{id}")
-	public List<Recipe> findByDietLabelId(@PathVariable int id) {
-		return rs.findByDietLabelId(id);
+	@GetMapping("/diet/{diet}")
+	public List<Recipe> findByDietLabel(@PathVariable String diet) {
+		return rs.findByDietLabel(diet);
 	}
 
 	// /name/:label

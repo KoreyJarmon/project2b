@@ -11,6 +11,4 @@ public interface IngredientRepo extends JpaRepository <Ingredients, Integer> {
 	
 	Ingredients findByIngredients(String ingredients);
 
-	Ingredients saveAndFlush(List<Ingredients> i);
-
 }

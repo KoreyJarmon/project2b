@@ -19,7 +19,7 @@ public class IngredientService {
 	@Autowired
 	private IngredientRepo ir;
 	
-	public Ingredients save(List<Ingredients> i) {
+	public Ingredients save(Ingredients i) {
 		return ir.saveAndFlush(i);
 	}
 	

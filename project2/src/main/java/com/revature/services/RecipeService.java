@@ -36,10 +36,6 @@ public class RecipeService {
 		return rr.findById(id).get();
 	}
 	
-	public List<Recipe> findByDietLabelId(int id) {
-		return rr.findByDietLabelId(id);
-	}
-	
 	public List<Recipe> findByIds(List<Integer> ids) {
 		return rr.findAllById(ids);
 	}
@@ -55,6 +51,10 @@ public class RecipeService {
 		newIngredient.setRecipe(r);
 		rir.saveAndFlush(newIngredient);
 		return newIngredient;
+	}
+
+	public List<Recipe> findByDietLabel(String diet) {
+		return rr.findByDietLabel(diet);
 	}
 	
 

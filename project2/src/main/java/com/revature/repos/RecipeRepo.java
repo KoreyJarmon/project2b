@@ -8,8 +8,8 @@ import com.revature.model.Recipe;
 
 public interface RecipeRepo extends JpaRepository <Recipe, Integer> {
 
-	List<Recipe> findByDietLabelId(int id);
 	Recipe findByLabel(String label);
 	List<Recipe> findByRecipeId(List<Integer> recipeId);
+	List<Recipe> findByDietLabel(String diet);
 
 }
