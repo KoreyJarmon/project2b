@@ -17,41 +17,36 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 public class Friends {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
 	@Column(name="friend_id")
+	private int fuser;
+	
+	@Column(name="user_id")
 	private int userId;
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Users fuser;
+
 	public Friends() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Friends(int userId, Users fuser) {
+
+	public Friends(int id, int fuser, int userId) {
 		super();
-		this.userId = userId;
+		this.id = id;
 		this.fuser = fuser;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public Users getFUser() {
-		return fuser;
-	}
-	public void setFUser(Users fuser) {
-		this.fuser = fuser;
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fuser == null) ? 0 : fuser.hashCode());
+		result = prime * result + fuser;
+		result = prime * result + id;
 		result = prime * result + userId;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -61,20 +56,43 @@ public class Friends {
 		if (getClass() != obj.getClass())
 			return false;
 		Friends other = (Friends) obj;
-		if (fuser == null) {
-			if (other.fuser != null)
-				return false;
-		} else if (!fuser.equals(other.fuser))
+		if (fuser != other.fuser)
+			return false;
+		if (id != other.id)
 			return false;
 		if (userId != other.userId)
 			return false;
 		return true;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getFuser() {
+		return fuser;
+	}
+
+	public void setFuser(int fuser) {
+		this.fuser = fuser;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
-		return "Friends [userId=" + userId + ", fuser=" + fuser + "]";
+		return "Friends [id=" + id + ", fuser=" + fuser + ", userId=" + userId + "]";
 	}
-	
-	
+
 	
 }

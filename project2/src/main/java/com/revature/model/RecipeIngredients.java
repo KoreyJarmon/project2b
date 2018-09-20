@@ -27,10 +27,8 @@ public class RecipeIngredients {
 	@JoinColumn(name="ingredient_id")
 	private Ingredients ingredient;
 	
-	@ManyToOne
-	@JoinColumn(name="recipe_id")
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Recipe recipe;
+	@Column(name="recipe_id")
+	private int recipe;
 	
 	private int quantity;
 
@@ -39,7 +37,7 @@ public class RecipeIngredients {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeIngredients(int recipeIngredientId, Ingredients ingredient, Recipe recipe, int quantity) {
+	public RecipeIngredients(int recipeIngredientId, Ingredients ingredient, int recipe, int quantity) {
 		super();
 		this.recipeIngredientId = recipeIngredientId;
 		this.ingredient = ingredient;
@@ -53,7 +51,7 @@ public class RecipeIngredients {
 		int result = 1;
 		result = prime * result + ((ingredient == null) ? 0 : ingredient.hashCode());
 		result = prime * result + quantity;
-		result = prime * result + ((recipe == null) ? 0 : recipe.hashCode());
+		result = prime * result + recipe;
 		result = prime * result + recipeIngredientId;
 		return result;
 	}
@@ -74,10 +72,7 @@ public class RecipeIngredients {
 			return false;
 		if (quantity != other.quantity)
 			return false;
-		if (recipe == null) {
-			if (other.recipe != null)
-				return false;
-		} else if (!recipe.equals(other.recipe))
+		if (recipe != other.recipe)
 			return false;
 		if (recipeIngredientId != other.recipeIngredientId)
 			return false;
@@ -100,11 +95,11 @@ public class RecipeIngredients {
 		this.ingredient = ingredient;
 	}
 
-	public Recipe getRecipe() {
+	public int getRecipe() {
 		return recipe;
 	}
 
-	public void setRecipe(Recipe recipe) {
+	public void setRecipe(int recipe) {
 		this.recipe = recipe;
 	}
 
@@ -121,6 +116,7 @@ public class RecipeIngredients {
 		return "RecipeIngredients [recipeIngredientId=" + recipeIngredientId + ", ingredient=" + ingredient
 				+ ", recipe=" + recipe + ", quantity=" + quantity + "]";
 	}
-
+	
+	
 	
 }

@@ -47,7 +47,7 @@ public class RecipeService {
 	public RecipeIngredients addItem(int id, RecipeIngredients newIngredient) {
 		Recipe r = rr.getOne(id);
 //		RecipeIngredients ingredient = rir.getOne(newIngredient.getRecipeIngredientId());
-		newIngredient.setRecipe(r);
+		newIngredient.setRecipe(r.getRecipeId());
 		rir.saveAndFlush(newIngredient);
 		return newIngredient;
 	}

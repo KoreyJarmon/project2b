@@ -26,10 +26,8 @@ public class Comments {
 	@Column(name="recipe_id")
 	private int recipeId;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Users user;
+	@Column(name="user_id")
+	private int user;
 	
 	private String post;
 
@@ -38,8 +36,9 @@ public class Comments {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Comments(int recipeId, Users user, String post) {
+	public Comments(int commentId, int recipeId, int user, String post) {
 		super();
+		this.commentId = commentId;
 		this.recipeId = recipeId;
 		this.user = user;
 		this.post = post;
@@ -49,9 +48,10 @@ public class Comments {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + commentId;
 		result = prime * result + ((post == null) ? 0 : post.hashCode());
 		result = prime * result + recipeId;
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + user;
 		return result;
 	}
 
@@ -64,6 +64,8 @@ public class Comments {
 		if (getClass() != obj.getClass())
 			return false;
 		Comments other = (Comments) obj;
+		if (commentId != other.commentId)
+			return false;
 		if (post == null) {
 			if (other.post != null)
 				return false;
@@ -71,12 +73,17 @@ public class Comments {
 			return false;
 		if (recipeId != other.recipeId)
 			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
+		if (user != other.user)
 			return false;
 		return true;
+	}
+
+	public int getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 
 	public int getRecipeId() {
@@ -87,11 +94,11 @@ public class Comments {
 		this.recipeId = recipeId;
 	}
 
-	public Users getUser() {
+	public int getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(int user) {
 		this.user = user;
 	}
 
@@ -105,9 +112,10 @@ public class Comments {
 
 	@Override
 	public String toString() {
-		return "Comments [recipeId=" + recipeId + ", user=" + user + ", post=" + post + "]";
+		return "Comments [commentId=" + commentId + ", recipeId=" + recipeId + ", user=" + user + ", post=" + post
+				+ "]";
 	}
-	
+
 	
 	
 }

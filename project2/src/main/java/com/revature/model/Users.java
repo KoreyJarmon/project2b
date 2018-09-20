@@ -33,7 +33,7 @@ public class Users {
 	private String avatar;
 	
 	
-	@OneToMany(mappedBy = "fuser")
+	@OneToMany(mappedBy = "userId")
 	private List<Friends>friends;
 
 	@OneToMany(mappedBy = "user")

@@ -21,7 +21,7 @@ public class CommentsService {
 	
 	public Comments addComment(int id, Comments newComment) {
 		Users user = ur.getOne(id);
-		newComment.setUser(user);
+		newComment.setUser(user.getUserId());
 		cr.saveAndFlush(newComment);
 		return newComment;
 	}
