@@ -48,8 +48,9 @@ public class UserController {
 	
 	// /users/login
 	@PostMapping("login")
-	public Users findByUsernameAndPassword(@RequestBody Credential u){
-		return us.findByUsernameAndPassword(u.getUsername(), u.getPassword());
+	public int findByUsernameAndPassword(@RequestBody Credential u){
+		Users user = us.findByUsernameAndPassword(u.getUsername(), u.getPassword());
+		return user.getUserId();
 	}
 	
 	// /users

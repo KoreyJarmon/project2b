@@ -12,7 +12,6 @@ import com.revature.repos.CommentRepo;
 import com.revature.repos.UserRepo;
 
 @Service
-//@Table(name = "comment_table")
 public class CommentsService {
 
 	@Autowired

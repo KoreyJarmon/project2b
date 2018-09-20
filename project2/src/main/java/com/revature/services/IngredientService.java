@@ -13,7 +13,6 @@ import com.revature.model.RecipeIngredients;
 import com.revature.repos.IngredientRepo;
 
 @Service
-//@Table(name = "ingredients")
 public class IngredientService {
 	
 	@Autowired

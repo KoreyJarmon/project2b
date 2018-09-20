@@ -15,7 +15,6 @@ import com.revature.repos.RecipeRepo;
 
 
 @Service
-//@Table(name = "recipe_table")
 public class RecipeService {
 	
 	@Autowired

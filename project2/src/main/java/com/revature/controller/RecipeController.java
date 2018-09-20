@@ -32,14 +32,6 @@ public class RecipeController {
 	@Autowired
 	private IngredientController ic;
 
-	// /recipe
-//	@PostMapping
-//	public ResponseEntity<Recipe> save(@RequestBody Recipe newRecipe) {
-//		Recipe recipe = rs.save(newRecipe);
-//		ResponseEntity<Recipe> resp = new ResponseEntity<Recipe>(recipe, HttpStatus.CREATED);
-//		return resp;
-//	}
-
 	@Transactional
 	@PostMapping
 	public ResponseEntity<Recipe> save(@RequestBody Recipe newRecipe) {

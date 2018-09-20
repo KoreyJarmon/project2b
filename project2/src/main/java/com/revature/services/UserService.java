@@ -11,7 +11,6 @@ import com.revature.model.Users;
 import com.revature.repos.UserRepo;
 
 @Service
-//@Table(name = "users")
 public class UserService {
 
 	@Autowired
