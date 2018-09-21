@@ -50,9 +50,9 @@ public class UserController {
 	
 	// /users/login
 	@PostMapping("login")
-	public int findByUsernameAndPassword(@RequestBody Credential u){
+	public Users findByUsernameAndPassword(@RequestBody Credential u){
 		Users user = us.findByUsernameAndPassword(u.getUsername(), u.getPassword());
-		return user.getUserId();
+		return user;
 	}
 	
 	@PostMapping("friends")
