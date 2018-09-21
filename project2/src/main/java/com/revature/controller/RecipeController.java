@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.model.Comments;
 import com.revature.model.Recipe;
 import com.revature.model.RecipeIngredients;
 import com.revature.services.IngredientService;
@@ -59,6 +61,15 @@ public class RecipeController {
 	@GetMapping("{id}")
 	public Recipe findById(@PathVariable int id) {
 		return rs.findById(id);
+	}
+	
+	@PostMapping("ids")
+	public List<Recipe> findByIds(@RequestBody List<Comments> comments) {
+		List<Recipe> listOfRecipes = new ArrayList<Recipe>();
+		comments.forEach(each ->{
+			listOfRecipes.add(rs.findById(each.getRecipeId()));
+		});
+		return listOfRecipes;
 	}
 
 	// /recipe/:id
