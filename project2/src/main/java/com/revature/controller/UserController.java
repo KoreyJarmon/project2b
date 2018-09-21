@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.dto.Credential;
+import com.revature.model.Friends;
 import com.revature.model.Users;
 import com.revature.services.UserService;
 
@@ -52,6 +54,15 @@ public class UserController {
 		Users user = us.findByUsernameAndPassword(u.getUsername(), u.getPassword());
 		return user.getUserId();
 	}
+	
+	@PostMapping("friends")
+    public List<Users> findFriends(@RequestBody  List<Friends> listOfFriends) {
+        List<Users>listUsers=new ArrayList<Users>();
+        listOfFriends.forEach(each->{
+            listUsers.add(us.findById(each.getFuser()));
+        });
+        return listUsers;
+    }
 	
 	// /users
 	@PostMapping
