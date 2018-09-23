@@ -37,17 +37,24 @@ public class RecipeController {
 	@Transactional
 	@PostMapping
 	public ResponseEntity<Recipe> save(@RequestBody Recipe newRecipe) {
-		newRecipe.setIngredients(newRecipe.getIngredients());
-		newRecipe.getIngredients().forEach(each -> {
-			ic.save(each.getIngredient());
-		});
+		Recipe recipeName = rs.findByLabel(newRecipe.getLabel());
+		if (recipeName != null) {
+			ResponseEntity<Recipe> resp1 = new ResponseEntity<Recipe>(recipeName, HttpStatus.CREATED);
+			return resp1;
+		} else {
 
-		Recipe recipe = rs.save(newRecipe);
-		newRecipe.getIngredients().forEach(each -> {
-			rs.addItem(newRecipe.getRecipeId(), each);
-		});
-		ResponseEntity<Recipe> resp = new ResponseEntity<Recipe>(recipe, HttpStatus.CREATED);
-		return resp;
+			newRecipe.setIngredients(newRecipe.getIngredients());
+			newRecipe.getIngredients().forEach(each -> {
+				ic.save(each.getIngredient());
+			});
+
+			Recipe recipe = rs.save(newRecipe);
+			newRecipe.getIngredients().forEach(each -> {
+				rs.addItem(newRecipe.getRecipeId(), each);
+			});
+			ResponseEntity<Recipe> resp = new ResponseEntity<Recipe>(recipe, HttpStatus.CREATED);
+			return resp;
+		}
 	}
 
 	// /recipe
@@ -62,11 +69,11 @@ public class RecipeController {
 	public Recipe findById(@PathVariable int id) {
 		return rs.findById(id);
 	}
-	
+
 	@PostMapping("ids")
 	public List<Recipe> findByIds(@RequestBody List<Comments> comments) {
 		List<Recipe> listOfRecipes = new ArrayList<Recipe>();
-		comments.forEach(each ->{
+		comments.forEach(each -> {
 			listOfRecipes.add(rs.findById(each.getRecipeId()));
 		});
 		return listOfRecipes;

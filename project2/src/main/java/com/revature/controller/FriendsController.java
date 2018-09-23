@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.Friends;
+import com.revature.model.Users;
 import com.revature.services.FriendsService;
 import com.revature.services.UserService;
 
@@ -23,11 +24,9 @@ public class FriendsController {
 	private UserService us;
 	
 	@PostMapping("{you}")
-	public void save(@PathVariable int you, @RequestBody Friends friend) {
-//		int f = us.findByUsername(username).getUserId();
-//		friend.setFuser(you);
+	public Users save(@PathVariable int you, @RequestBody Friends friend) {
 		friend.setUserId(you);
 		fs.save(friend);
-		System.out.println(friend);
+		return us.findById(you);
 	}
 }
